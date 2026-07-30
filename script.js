@@ -1,147 +1,145 @@
 /*
-==========================================================
-Larry's Rain Center
-GitHub Pages + DAKboard
-==========================================================
+=========================================
+Larry's Rain Center v1.0
+=========================================
 */
 
-const WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather";
+const statusBox = document.getElementById("status");
+const nextRainBox = document.getElementById("nextRain");
+const hourlyBox = document.getElementById("hourly");
+const updatedBox = document.getElementById("updated");
+
+const API_URL =
+`https://api.openweathermap.org/data/3.0/onecall?lat=${CONFIG.latitude}&lon=${CONFIG.longitude}&exclude=minutely,daily,alerts&units=${CONFIG.units}&appid=${CONFIG.apiKey}`;
 
 async function loadWeather() {
 
-    if (
-        CONFIG.apiKey === "" ||
-        CONFIG.apiKey === "a198ca797648bbd83e3892251c3385b9"
-    ) {
-        showMessage("Please add your OpenWeather API key to config.js");
-        return;
-    }
-
     try {
 
-        const url =
-            `${WEATHER_URL}?lat=${CONFIG.latitude}` +
-            `&lon=${CONFIG.longitude}` +
-            `&units=${CONFIG.units}` +
-            `&appid=${CONFIG.apiKey}`;
-
-        const response = await fetch(url);
+        const response = await fetch(API_URL);
 
         if (!response.ok) {
-            throw new Error("Weather service unavailable");
+            throw new Error("Weather download failed");
         }
 
-        const weather = await response.json();
+        const data = await response.json();
 
-        updateScreen(weather);
+        displayWeather(data);
 
     }
-    catch (error) {
 
-        console.error(error);
+    catch (err) {
 
-        showMessage("Unable to retrieve weather.");
+        console.error(err);
+
+        statusBox.textContent = "Weather Error";
+
+        nextRainBox.textContent =
+            "Unable to retrieve forecast.";
 
     }
 
 }
 
-function updateScreen(data) {
+function displayWeather(data) {
 
-    document.getElementById("temperature").textContent =
-        Math.round(data.main.temp);
+    const hourly = data.hourly;
 
-    document.getElementById("feelsLike").textContent =
-        Math.round(data.main.feels_like) + "°";
+    //---------------------------------------
+    // Current Rain Status
+    //---------------------------------------
 
-    document.getElementById("humidity").textContent =
-        data.main.humidity + "%";
+    const currentPop = hourly[0].pop || 0;
 
-    document.getElementById("description").textContent =
-        capitalize(data.weather[0].description);
+    if (currentPop >= 0.50) {
 
-    document.getElementById("wind").textContent =
-        Math.round(data.wind.speed) +
-        " mph " +
-        degreesToCompass(data.wind.deg);
+        statusBox.textContent = "🌧 Rain Expected";
 
-    document.getElementById("pressure").textContent =
-        (data.main.pressure * 0.02953).toFixed(2) +
-        " inHg";
-
-    document.getElementById("visibility").textContent =
-        (data.visibility / 1609.34).toFixed(1) +
-        " mi";
-
-    document.getElementById("sunrise").textContent =
-        formatTime(data.sys.sunrise);
-
-    document.getElementById("sunset").textContent =
-        formatTime(data.sys.sunset);
-
-    document.getElementById("weatherIcon").src =
-        `https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png`;
-
-    document.getElementById("weatherIcon").alt =
-        data.weather[0].description;
-
-    // Dew point not available from Current Weather API
-    document.getElementById("dewpoint").textContent = "--";
-
-    // Chance of rain not available from Current Weather API
-    document.getElementById("pop").textContent = "--";
-
-    // Rainfall today
-    if (data.rain && data.rain["1h"]) {
-        document.getElementById("rainToday").textContent =
-            (data.rain["1h"] / 25.4).toFixed(2) + "\"";
     } else {
-        document.getElementById("rainToday").textContent = "0.00\"";
+
+        statusBox.textContent = "☀ No Rain";
+
     }
 
-    document.getElementById("lastUpdated").textContent =
-        "Updated " + new Date().toLocaleTimeString();
+    //---------------------------------------
+    // Next Rain
+    //---------------------------------------
+
+    let found = false;
+
+    for (let i = 0; i < hourly.length; i++) {
+
+        if ((hourly[i].pop || 0) >= 0.30) {
+
+            const time = new Date(hourly[i].dt * 1000);
+
+            const label = time.toLocaleString([], {
+                weekday: "short",
+                hour: "numeric"
+            });
+
+            const percent = Math.round(hourly[i].pop * 100);
+
+            nextRainBox.innerHTML =
+                `<strong>Next Rain</strong><br>${label} (${percent}%)`;
+
+            found = true;
+
+            break;
+
+        }
+
+    }
+
+    if (!found) {
+
+        nextRainBox.innerHTML =
+            "<strong>No rain expected</strong><br>Next 48 hours";
+
+    }
+
+    //---------------------------------------
+    // Hourly Forecast
+    //---------------------------------------
+
+    hourlyBox.innerHTML = "";
+
+    for (let i = 0; i < 6; i++) {
+
+        const h = hourly[i];
+
+        const time = new Date(h.dt * 1000);
+
+        const hour = time.toLocaleTimeString([], {
+            hour: "numeric"
+        });
+
+        const chance = Math.round((h.pop || 0) * 100);
+
+        hourlyBox.innerHTML += `
+            <div class="hourRow">
+                <div class="time">${hour}</div>
+                <div class="percent">${chance}%</div>
+            </div>
+        `;
+    }
+
+    //---------------------------------------
+    // Updated Time
+    //---------------------------------------
+
+    updatedBox.textContent =
+        "Updated " +
+        new Date().toLocaleTimeString([], {
+            hour: "numeric",
+            minute: "2-digit"
+        });
 
 }
 
-function formatTime(unixTime) {
-
-    return new Date(unixTime * 1000).toLocaleTimeString([], {
-        hour: "numeric",
-        minute: "2-digit"
-    });
-
-}
-
-function capitalize(text) {
-
-    return text.replace(/\b\w/g, c => c.toUpperCase());
-
-}
-
-function showMessage(message) {
-
-    document.getElementById("description").textContent = message;
-
-}
-
-function degreesToCompass(degrees) {
-
-    const directions = [
-        "N","NNE","NE","ENE",
-        "E","ESE","SE","SSE",
-        "S","SSW","SW","WSW",
-        "W","WNW","NW","NNW"
-    ];
-
-    return directions[
-        Math.round(degrees / 22.5) % 16
-    ];
-
-}
-
-// Initial load
 loadWeather();
 
-// Refresh automatically
-setInterval(loadWeather, CONFIG.refreshMinutes * 60 * 1000);
+setInterval(
+    loadWeather,
+    CONFIG.refreshMinutes * 60 * 1000
+);
