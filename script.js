@@ -11,7 +11,7 @@ async function loadWeather() {
 
     if (
         CONFIG.apiKey === "" ||
-        CONFIG.apiKey === "YOUR_OPENWEATHER_API_KEY"
+        CONFIG.apiKey === "a198ca797648bbd83e3892251c3385b9"
     ) {
         showMessage("Please add your OpenWeather API key to config.js");
         return;
