@@ -1,118 +1,149 @@
-/* Larry's Rain Center v1.0 */
+/* =========================================
+   Larry's Rain Center v2.0
+   ========================================= */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-body {
-    background: transparent;
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
-}
+html,
+body{
 
-#widget {
+    width:100%;
+    height:100%;
 
-    width: 350px;
-    height: 450px;
+    background:transparent;
 
-    background: #555;
-    border-radius: 16px;
+    font-family:Arial,Helvetica,sans-serif;
 
-    padding: 18px;
-
-    display: flex;
-    flex-direction: column;
-
-    box-shadow: 0 4px 10px rgba(0,0,0,.35);
+    color:white;
 
 }
 
-#title {
+body{
 
-    text-align: center;
-
-    font-size: 28px;
-    font-weight: bold;
-
-    margin-bottom: 18px;
+    padding:6px;
 
 }
 
-#status {
+#widget{
 
-    font-size: 32px;
-    font-weight: bold;
+    width:100%;
+    height:100%;
 
-    text-align: center;
+    background:#555;
 
-    margin-bottom: 20px;
+    border-radius:18px;
 
-}
+    padding:18px;
 
-#nextRain {
+    display:flex;
+    flex-direction:column;
 
-    background: rgba(255,255,255,.10);
-
-    border-radius: 10px;
-
-    padding: 12px;
-
-    font-size: 22px;
-
-    text-align: center;
-
-    margin-bottom: 18px;
-
-    line-height: 1.4;
+    box-shadow:0 6px 18px rgba(0,0,0,.45);
 
 }
 
-#hourly {
+/* ---------- Title ---------- */
 
-    flex: 1;
+#title{
 
-    font-size: 20px;
+    text-align:center;
 
-    line-height: 1.8;
+    font-size:2.2rem;
 
-}
+    font-weight:bold;
 
-.hourRow {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    border-bottom: 1px solid rgba(255,255,255,.15);
-
-    padding: 6px 0;
+    margin-bottom:16px;
 
 }
 
-.time {
+/* ---------- Status ---------- */
 
-    font-weight: bold;
+#status{
+
+    text-align:center;
+
+    font-size:2.8rem;
+
+    font-weight:bold;
+
+    margin-bottom:18px;
 
 }
 
-.percent {
+/* ---------- Next Rain ---------- */
 
-    color: #7fd3ff;
+#nextRain{
 
-    font-weight: bold;
+    background:rgba(255,255,255,.12);
+
+    border-radius:12px;
+
+    padding:14px;
+
+    text-align:center;
+
+    font-size:1.6rem;
+
+    line-height:1.35;
+
+    margin-bottom:18px;
 
 }
 
-#updated {
+/* ---------- Hourly ---------- */
 
-    margin-top: 12px;
+#hourly{
 
-    text-align: center;
+    flex:1;
 
-    font-size: 14px;
+}
 
-    color: #dddddd;
+.hourRow{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:10px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.18);
+
+}
+
+.time{
+
+    font-size:1.35rem;
+
+    font-weight:bold;
+
+}
+
+.percent{
+
+    font-size:1.35rem;
+
+    font-weight:bold;
+
+    color:#7fd3ff;
+
+}
+
+/* ---------- Updated ---------- */
+
+#updated{
+
+    margin-top:12px;
+
+    text-align:center;
+
+    font-size:.95rem;
+
+    color:#dddddd;
 
 }
