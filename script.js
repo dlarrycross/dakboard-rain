@@ -1,6 +1,6 @@
 /*
 =========================================
-Larry's Rain Center v1.0
+Larry's Rain Center v2.0
 =========================================
 */
 
@@ -8,6 +8,7 @@ const statusBox = document.getElementById("status");
 const nextRainBox = document.getElementById("nextRain");
 const hourlyBox = document.getElementById("hourly");
 const updatedBox = document.getElementById("updated");
+const titleBox = document.getElementById("title");
 
 const API_URL =
 `https://api.openweathermap.org/data/3.0/onecall?lat=${CONFIG.latitude}&lon=${CONFIG.longitude}&exclude=minutely,daily,alerts&units=${CONFIG.units}&appid=${CONFIG.apiKey}`;
@@ -27,15 +28,12 @@ async function loadWeather() {
         displayWeather(data);
 
     }
-
     catch (err) {
 
         console.error(err);
 
         statusBox.textContent = "Weather Error";
-
-        nextRainBox.textContent =
-            "Unable to retrieve forecast.";
+        nextRainBox.textContent = "Unable to retrieve forecast.";
 
     }
 
@@ -43,48 +41,47 @@ async function loadWeather() {
 
 function displayWeather(data) {
 
-    const hourly = data.hourly;
+    // ----- Header -----
 
-    //---------------------------------------
-    // Current Rain Status
-    //---------------------------------------
+    const temp = Math.round(data.current.temp);
 
-    const currentPop = hourly[0].pop || 0;
+    titleBox.innerHTML = `☔ Rain Center&nbsp;&nbsp;${temp}°`;
+
+    // ----- Current Status -----
+
+    const currentPop = data.hourly[0].pop || 0;
 
     if (currentPop >= 0.50) {
 
-        statusBox.textContent = "🌧 Rain Expected";
+        statusBox.textContent = "🌧 RAIN";
 
     } else {
 
-        statusBox.textContent = "☀ No Rain";
+        statusBox.textContent = "☀ NO RAIN";
 
     }
 
-    //---------------------------------------
-    // Next Rain
-    //---------------------------------------
+    // ----- Next Rain -----
 
     let found = false;
 
-    for (let i = 0; i < hourly.length; i++) {
+    for (let i = 0; i < data.hourly.length; i++) {
 
-        if ((hourly[i].pop || 0) >= 0.30) {
+        if ((data.hourly[i].pop || 0) >= 0.30) {
 
-            const time = new Date(hourly[i].dt * 1000);
+            const d = new Date(data.hourly[i].dt * 1000);
 
-            const label = time.toLocaleString([], {
+            const label = d.toLocaleString([], {
                 weekday: "short",
                 hour: "numeric"
             });
 
-            const percent = Math.round(hourly[i].pop * 100);
+            const pct = Math.round(data.hourly[i].pop * 100);
 
             nextRainBox.innerHTML =
-                `<strong>Next Rain</strong><br>${label} (${percent}%)`;
+                `<strong>Next Rain</strong><br>${label} • ${pct}%`;
 
             found = true;
-
             break;
 
         }
@@ -98,15 +95,13 @@ function displayWeather(data) {
 
     }
 
-    //---------------------------------------
-    // Hourly Forecast
-    //---------------------------------------
+    // ----- Hourly Forecast -----
 
     hourlyBox.innerHTML = "";
 
     for (let i = 0; i < 5; i++) {
 
-        const h = hourly[i];
+        const h = data.hourly[i];
 
         const time = new Date(h.dt * 1000);
 
@@ -124,9 +119,7 @@ function displayWeather(data) {
         `;
     }
 
-    //---------------------------------------
-    // Updated Time
-    //---------------------------------------
+    // ----- Updated -----
 
     updatedBox.textContent =
         "Updated " +
