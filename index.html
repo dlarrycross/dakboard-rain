@@ -1,106 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Larry's Rain Center</title>
 
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
-    <!-- Refresh every 10 minutes if JavaScript is unavailable -->
-    <meta http-equiv="refresh" content="600">
+<title>Larry's Rain Center</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-<div class="container">
+<div id="widget">
 
-    <header>
-        <h1>🌧 Larry's Rain Center</h1>
-        <h2>Lewis Center, Ohio 43035</h2>
-    </header>
+    <div id="title">
+        ☔ Larry's Rain Center
+    </div>
 
-    <main>
+    <div id="status">
+        Loading...
+    </div>
 
-        <section class="current-weather">
+    <div id="nextRain">
+        Checking forecast...
+    </div>
 
-            <div class="icon">
-                <img id="weatherIcon" src="" alt="Weather Icon">
-            </div>
+    <div id="hourly">
 
-            <div class="temperature">
-                <span id="temperature">--</span>°
-            </div>
+    </div>
 
-            <div class="description" id="description">
-                Loading...
-            </div>
+    <div id="updated">
 
-        </section>
-
-        <section class="details">
-
-            <div class="card">
-                <label>Feels Like</label>
-                <span id="feelsLike">--°</span>
-            </div>
-
-            <div class="card">
-                <label>Humidity</label>
-                <span id="humidity">--%</span>
-            </div>
-
-            <div class="card">
-                <label>Wind</label>
-                <span id="wind">-- mph</span>
-            </div>
-
-            <div class="card">
-                <label>Pressure</label>
-                <span id="pressure">-- inHg</span>
-            </div>
-
-            <div class="card">
-                <label>Dew Point</label>
-                <span id="dewpoint">--°</span>
-            </div>
-
-            <div class="card">
-                <label>Visibility</label>
-                <span id="visibility">-- mi</span>
-            </div>
-
-            <div class="card">
-                <label>Chance of Rain</label>
-                <span id="pop">--%</span>
-            </div>
-
-            <div class="card">
-                <label>Rain Today</label>
-                <span id="rainToday">0.00"</span>
-            </div>
-
-            <div class="card">
-                <label>Sunrise</label>
-                <span id="sunrise">--:--</span>
-            </div>
-
-            <div class="card">
-                <label>Sunset</label>
-                <span id="sunset">--:--</span>
-            </div>
-
-        </section>
-
-    </main>
-
-    <footer>
-
-        <div id="lastUpdated">
-            Updating...
-        </div>
-
-    </footer>
+    </div>
 
 </div>
 
