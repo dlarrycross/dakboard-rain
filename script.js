@@ -104,7 +104,7 @@ function displayWeather(data) {
 
     hourlyBox.innerHTML = "";
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 5; i++) {
 
         const h = hourly[i];
 
