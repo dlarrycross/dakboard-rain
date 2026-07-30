@@ -1,6 +1,6 @@
 /*
 =========================================
-Larry's Rain Center v2.0
+☔ Larry's Rain Gauge Lewis Center, Ohio
 =========================================
 */
 
