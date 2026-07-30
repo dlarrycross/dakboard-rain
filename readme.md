@@ -1,86 +1,78 @@
-# Larry's Rain Center
+# Larry's Rain Center v1.0
 
-A weather dashboard designed specifically for **GitHub Pages** and **DAKboard**.
-
-Displays current weather conditions for **Lewis Center, Ohio (43035)** using the OpenWeather API.
+A compact rain forecast widget designed for DAKboard using OpenWeather.
 
 ---
 
 ## Features
 
-- Current temperature
-- Feels Like temperature
-- Weather icon
-- Weather description
-- Humidity
-- Wind speed and direction
-- Pressure
-- Visibility
-- Sunrise
-- Sunset
-- Rain (last hour, when available)
+- Compact 350 × 450 widget
+- Current rain status
+- Next expected rain
+- Six-hour precipitation forecast
 - Automatic refresh every 10 minutes
-- Dark theme for TVs and wall displays
-- Responsive layout
-- DAKboard Website/iFrame compatible
+- Designed for always-on displays
+- GitHub Pages compatible
 
 ---
 
 ## Files
 
-| File | Purpose |
-|------|---------|
-| index.html | Main page |
-| style.css | Dashboard styling |
-| script.js | Weather logic |
-| config.js | Configuration and API key |
-| README.md | Documentation |
+```
+index.html
+style.css
+script.js
+config.js
+README.md
+```
 
 ---
 
-## Installation
+## Step 1 – Get an OpenWeather API Key
 
-1. Create a new GitHub repository.
+Create a free account at:
 
-Example:
+https://openweathermap.org/
 
-Larrys-Rain-Center
+Generate an API key.
 
-2. Upload all project files.
+---
 
-3. Edit **config.js**
+## Step 2 – Edit config.js
 
 Replace:
 
-```javascript
-apiKey: "YOUR_OPENWEATHER_API_KEY"
+```
+a198ca797648bbd83e3892251c3385b9  3.0
 ```
 
-with
+with your API key.
 
-```javascript
-apiKey: "YOUR_ACTUAL_API_KEY"
+Example:
+
 ```
-
-4. Commit the changes.
+apiKey: "xxxxxxxxxxxxxxxxxxxxxxxx"
+```
 
 ---
 
-## Enable GitHub Pages
+## Step 3 – Upload to GitHub
 
-Open:
+Create a new repository (or use your existing one).
 
-Settings
+Upload all five files to the repository.
 
-↓
+---
 
-Pages
+## Step 4 – Enable GitHub Pages
 
-↓
+Repository Settings
 
-Build from Branch
+→ Pages
 
-↓
+Source:
+
+Deploy from branch
 
 Branch:
 
@@ -94,60 +86,44 @@ Save
 
 GitHub will publish your website.
 
-The URL will look similar to:
+---
 
-https://YOURUSERNAME.github.io/Larrys-Rain-Center/
+## Step 5 – Copy the Website URL
+
+It will look like:
+
+```
+https://YOURNAME.github.io/rain-center/
+```
 
 ---
 
-## DAKboard
+## Step 6 – Add to DAKboard
 
-Add a new block.
-
-Choose:
+Add Block
 
 Website
 
-Paste your GitHub Pages URL.
+Paste the GitHub Pages URL.
 
-Enable:
+Recommended size:
 
-- Full Screen
-- No Scrolling
+350 × 450
+
+Done.
 
 ---
 
 ## Refresh
 
-The dashboard refreshes automatically every 10 minutes.
+The widget refreshes automatically every 10 minutes.
 
-Change the interval inside **config.js**
-
-Example:
-
-```javascript
-refreshMinutes: 5
-```
+Simply leave the DAKboard running.
 
 ---
 
-## Future Enhancements
+## Version
 
-- 7-day forecast
-- Hourly forecast
-- Rain graph
-- Radar button
-- National Weather Service alerts
-- Lightning map
-- Air quality
-- UV index
-- Pollen
-- Snow totals
-- Moon phase
-- Weather history
+Larry's Rain Center
 
----
-
-## License
-
-Free for personal use.
+Version 1.0
