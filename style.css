@@ -1,217 +1,118 @@
-/* ======================================================
-   Larry's Rain Center
-   Designed for GitHub Pages + DAKboard
-====================================================== */
+/* Larry's Rain Center v1.0 */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html,
-body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-
-    background:#0d1117;
-    color:#ffffff;
-
-    font-family:Segoe UI, Arial, Helvetica, sans-serif;
+body {
+    background: transparent;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
 }
 
-.container{
+#widget {
 
-    width:100%;
-    height:100%;
+    width: 350px;
+    height: 450px;
 
-    display:flex;
-    flex-direction:column;
+    background: #555;
+    border-radius: 16px;
 
-    padding:25px;
-}
+    padding: 18px;
 
-header{
+    display: flex;
+    flex-direction: column;
 
-    text-align:center;
-
-    margin-bottom:25px;
-}
-
-header h1{
-
-    font-size:3rem;
-    font-weight:700;
-}
-
-header h2{
-
-    margin-top:8px;
-
-    font-size:1.3rem;
-
-    color:#bbbbbb;
-
-    font-weight:400;
-}
-
-/* =============================== */
-
-.current-weather{
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    margin-bottom:30px;
-}
-
-.icon img{
-
-    width:130px;
-
-    height:130px;
-}
-
-.temperature{
-
-    font-size:6rem;
-
-    font-weight:bold;
-
-    margin-top:10px;
-}
-
-.description{
-
-    margin-top:10px;
-
-    font-size:2rem;
-
-    color:#7cc7ff;
-}
-
-/* =============================== */
-
-.details{
-
-    flex:1;
-
-    display:grid;
-
-    grid-template-columns:repeat(2,1fr);
-
-    gap:18px;
-}
-
-.card{
-
-    background:#1a2233;
-
-    border-radius:14px;
-
-    padding:18px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    border:1px solid #304050;
-
-    box-shadow:0 0 10px rgba(0,0,0,.35);
-}
-
-.card label{
-
-    font-size:1.2rem;
-
-    color:#cfcfcf;
-}
-
-.card span{
-
-    font-size:1.5rem;
-
-    font-weight:bold;
-
-    color:#ffffff;
-}
-
-/* =============================== */
-
-footer{
-
-    margin-top:20px;
-
-    text-align:center;
-
-    color:#9ea6b0;
-
-    font-size:1rem;
-}
-
-/* =============================== */
-/* Tablet */
-
-@media (max-width:900px){
-
-    .temperature{
-
-        font-size:5rem;
-    }
-
-    .details{
-
-        grid-template-columns:1fr;
-    }
+    box-shadow: 0 4px 10px rgba(0,0,0,.35);
 
 }
 
-/* =============================== */
-/* Phone */
+#title {
 
-@media (max-width:600px){
+    text-align: center;
 
-    header h1{
+    font-size: 28px;
+    font-weight: bold;
 
-        font-size:2rem;
-    }
+    margin-bottom: 18px;
 
-    header h2{
+}
 
-        font-size:1rem;
-    }
+#status {
 
-    .temperature{
+    font-size: 32px;
+    font-weight: bold;
 
-        font-size:4rem;
-    }
+    text-align: center;
 
-    .description{
+    margin-bottom: 20px;
 
-        font-size:1.4rem;
-    }
+}
 
-    .card{
+#nextRain {
 
-        padding:14px;
-    }
+    background: rgba(255,255,255,.10);
 
-    .card label{
+    border-radius: 10px;
 
-        font-size:1rem;
-    }
+    padding: 12px;
 
-    .card span{
+    font-size: 22px;
 
-        font-size:1.2rem;
-    }
+    text-align: center;
+
+    margin-bottom: 18px;
+
+    line-height: 1.4;
+
+}
+
+#hourly {
+
+    flex: 1;
+
+    font-size: 20px;
+
+    line-height: 1.8;
+
+}
+
+.hourRow {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    border-bottom: 1px solid rgba(255,255,255,.15);
+
+    padding: 6px 0;
+
+}
+
+.time {
+
+    font-weight: bold;
+
+}
+
+.percent {
+
+    color: #7fd3ff;
+
+    font-weight: bold;
+
+}
+
+#updated {
+
+    margin-top: 12px;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    color: #dddddd;
 
 }
