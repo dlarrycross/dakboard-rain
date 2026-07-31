@@ -1,132 +1,54 @@
-/*
-=========================================
-☔ Larry's Rain Gauge Lewis Center, Ohio
-=========================================
-*/
-
-const statusBox = document.getElementById("status");
-const nextRainBox = document.getElementById("nextRain");
-const hourlyBox = document.getElementById("hourly");
-const updatedBox = document.getElementById("updated");
-const titleBox = document.getElementById("title");
-
-const API_URL =
-`https://api.openweathermap.org/data/3.0/onecall?lat=${CONFIG.latitude}&lon=${CONFIG.longitude}&exclude=minutely,daily,alerts&units=${CONFIG.units}&appid=${CONFIG.apiKey}`;
-
 async function loadWeather() {
+
+    const url =
+        `https://api.openweathermap.org/data/2.5/weather?lat=${CONFIG.latitude}` +
+        `&lon=${CONFIG.longitude}` +
+        `&appid=${CONFIG.apiKey}` +
+        `&units=${CONFIG.units}`;
 
     try {
 
-        const response = await fetch(API_URL);
+        const response = await fetch(url);
+        const weather = await response.json();
 
-        if (!response.ok) {
-            throw new Error("Weather download failed");
+        document.getElementById("temp").innerHTML =
+            Math.round(weather.main.temp) + "°F";
+
+        document.getElementById("humidity").innerHTML =
+            weather.main.humidity + "%";
+
+        document.getElementById("wind").innerHTML =
+            Math.round(weather.wind.speed) + " mph";
+
+        document.getElementById("status").innerHTML =
+            weather.weather[0].description;
+
+        // Rain amount if available
+        let rainToday = 0;
+
+        if (weather.rain && weather.rain["1h"]) {
+            rainToday = weather.rain["1h"] / 25.4;
         }
 
-        const data = await response.json();
+        document.getElementById("rainValue").innerHTML =
+            rainToday.toFixed(2) + '"';
 
-        displayWeather(data);
+        document.getElementById("updated").innerHTML =
+            "Updated " +
+            new Date().toLocaleTimeString([], {
+                hour: "numeric",
+                minute: "2-digit"
+            });
 
     }
     catch (err) {
 
         console.error(err);
 
-        statusBox.textContent = "Weather Error";
-        nextRainBox.textContent = "Unable to retrieve forecast.";
+        document.getElementById("status").innerHTML =
+            "Unable to load weather";
 
     }
-
-}
-
-function displayWeather(data) {
-
-    // ----- Header -----
-
-    const temp = Math.round(data.current.temp);
-
-    titleBox.innerHTML = `☔ Rain Center&nbsp;&nbsp;${temp}°`;
-
-    // ----- Current Status -----
-
-    const currentPop = data.hourly[0].pop || 0;
-
-    if (currentPop >= 0.50) {
-
-        statusBox.textContent = "🌧 RAIN";
-
-    } else {
-
-        statusBox.textContent = "☀ NO RAIN";
-
-    }
-
-    // ----- Next Rain -----
-
-    let found = false;
-
-    for (let i = 0; i < data.hourly.length; i++) {
-
-        if ((data.hourly[i].pop || 0) >= 0.30) {
-
-            const d = new Date(data.hourly[i].dt * 1000);
-
-            const label = d.toLocaleString([], {
-                weekday: "short",
-                hour: "numeric"
-            });
-
-            const pct = Math.round(data.hourly[i].pop * 100);
-
-            nextRainBox.innerHTML =
-                `<strong>Next Rain</strong><br>${label} • ${pct}%`;
-
-            found = true;
-            break;
-
-        }
-
-    }
-
-    if (!found) {
-
-        nextRainBox.innerHTML =
-            "<strong>No rain expected</strong><br>Next 48 hours";
-
-    }
-
-    // ----- Hourly Forecast -----
-
-    hourlyBox.innerHTML = "";
-
-    for (let i = 0; i < 5; i++) {
-
-        const h = data.hourly[i];
-
-        const time = new Date(h.dt * 1000);
-
-        const hour = time.toLocaleTimeString([], {
-            hour: "numeric"
-        });
-
-        const chance = Math.round((h.pop || 0) * 100);
-
-        hourlyBox.innerHTML += `
-            <div class="hourRow">
-                <div class="time">${hour}</div>
-                <div class="percent">${chance}%</div>
-            </div>
-        `;
-    }
-
-    // ----- Updated -----
-
-    updatedBox.textContent =
-        "Updated " +
-        new Date().toLocaleTimeString([], {
-            hour: "numeric",
-            minute: "2-digit"
-        });
 
 }
 
