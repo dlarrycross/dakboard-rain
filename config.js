@@ -5,7 +5,7 @@
 
 const CONFIG = {
   // Paste your OpenWeather API key here
-  apiKey: "PASTE_YOUR_API_KEY_HERE",
+  apiKey: "a198ca797648bbd83e3892251c3385b9",
 
   // Lewis Center, Ohio
   latitude: 40.1984,
