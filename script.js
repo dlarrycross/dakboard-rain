@@ -32,7 +32,23 @@ async function loadWeather() {
 
         document.getElementById("rainValue").innerHTML =
             rainToday.toFixed(2) + '"';
+const maxRain = 2.0;
 
+let percent = Math.min(rainToday / maxRain, 1);
+
+let tubeHeight = percent * 165;
+
+document.getElementById("waterLevel")
+.setAttribute(
+    "y",
+    185 - tubeHeight
+);
+
+document.getElementById("waterLevel")
+.setAttribute(
+    "height",
+    tubeHeight
+);
         document.getElementById("updated").innerHTML =
             "Updated " +
             new Date().toLocaleTimeString([], {
