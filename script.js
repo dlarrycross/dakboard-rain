@@ -11,17 +11,7 @@ async function loadWeather() {
         const response = await fetch(url);
         const weather = await response.json();
 
-        document.getElementById("temp").innerHTML =
-            Math.round(weather.main.temp) + "°F";
-
-        document.getElementById("humidity").innerHTML =
-            weather.main.humidity + "%";
-
-        document.getElementById("wind").innerHTML =
-            Math.round(weather.wind.speed) + " mph";
-
-        document.getElementById("status").innerHTML =
-            weather.weather[0].description;
+       
 
         // Rain amount if available
         let rainToday = 0;
@@ -61,8 +51,8 @@ document.getElementById("waterLevel")
 
         console.error(err);
 
-        document.getElementById("status").innerHTML =
-            "Unable to load weather";
+        document.getElementById("updated").innerHTML =
+    "Weather update failed";
 
     }
 
