@@ -38,15 +38,9 @@ font-family:Arial,Helvetica,sans-serif;
 }
 
 #location{
-
-font-size:20px;
-
-text-align:center;
-
-color:#9cc9ff;
-
-margin-bottom:30px;
-
+    font-size:14px;
+    color:#8fc2ff;
+    margin-bottom:12px;
 }
 
 #rainContainer{
