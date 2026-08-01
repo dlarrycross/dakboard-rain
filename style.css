@@ -48,25 +48,45 @@ margin-bottom:30px;
 
 #rainContainer{
 
-margin:auto;
-
-width:220px;
-
-height:220px;
-
-border-radius:30px;
-
-border:4px solid #2f7fff;
-
 display:flex;
 
 flex-direction:column;
 
-justify-content:center;
-
 align-items:center;
 
-background:#111;
+margin-top:20px;
+
+margin-bottom:20px;
+
+}
+
+#rainGauge{
+
+width:130px;
+
+height:250px;
+
+}
+
+#rainValue{
+
+font-size:54px;
+
+font-weight:bold;
+
+color:#6cc6ff;
+
+margin-top:10px;
+
+}
+
+#rainLabel{
+
+font-size:20px;
+
+letter-spacing:2px;
+
+color:white;
 
 }
 
