@@ -97,13 +97,12 @@ color:white;
 }
 
 #rainValue{
-
-font-size:64px;
-
-font-weight:bold;
-
-color:#5ec8ff;
-
+    font-size:56px;
+    font-weight:bold;
+    color:#62c8ff;
+    line-height:1;
+    margin-top:10px;
+    margin-bottom:6px;
 }
 
 #rainLabel{
